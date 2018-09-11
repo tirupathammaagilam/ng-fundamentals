@@ -1,0 +1,182 @@
+<h6><b>Interpolation binding</b></h6>
+<p>My current hero is {{currentHero.name}}</p>
+
+<h3>
+  <img id="heroImg" src="{{heroImageUrl}}" style="height:50px">
+</h3>
+
+<p>The sum of 1 + 1 is {{1 + 1}}</p>
+
+<p>The sum of 1 + 1 is not {{1 + 1 + getVal()}}</p>
+
+<!-- Script tag will  be removed while build -->
+<script>
+  alert('test');
+</script>
+
+<hr />
+<h6><b>Property binding</b></h6>
+<br />
+
+<img [src]="heroImageUrl" style="height:50px" />
+<br /><br />
+
+<button [disabled]="formNotChanged">Cancel</button>
+<br /><br />
+
+<div [ngClass]="classConditions">[ngClass] binding to the classes property</div>
+<br />
+
+<app-hero-detail [hero]="currentHero"></app-hero-detail>
+<br />
+
+<!-- Here 'hero' property is initialised with 'currentHero' string. If we use square brackets then only template expression / property binding expression will be evaluated -->
+<app-hero-detail hero="currentHero"></app-hero-detail>
+<br />
+
+<h6>Usign function call in bindings:</h6>
+<img src="{{getHeroImage()}}" style="height:50px" />
+<img [src]="getHeroImage()" style="height:50px" />
+<br /><br />
+
+<h6>Script tags in property bindings:</h6>
+<p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
+<p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
+
+<hr />
+<h6><b>Attribute, class, and style bindings</b></h6>
+<br />
+
+<h6>Attribute binding</h6>
+
+<input type="text" id="name" value="John" placeholder="Name" />
+<br><br>
+
+<table class="table table-bordered text-center">
+  <tr>
+    <td colspan="2">One</td>
+  </tr>
+  <tr>
+    <td>Three-Four</td>
+    <td>Three-Four</td>
+  </tr>
+</table>
+
+<br><br>
+
+<div>Un-comment below binding to get error</div>
+<table class="table table-bordered text-center">
+  <tr>
+    <!-- <td colspan="{{ noOfColumns }}">One</td> -->
+  </tr>
+  <tr>
+    <td>Three-Four</td>
+    <td>Three-Four</td>
+  </tr>
+</table>
+
+
+<div>Attribute binding</div>
+<table class="table table-bordered text-center">
+  <tr>
+    <td [attr.colspan]="noOfColumns">One</td>
+  </tr>
+  <tr>
+    <td>Three-Four</td>
+    <td>Three-Four</td>
+  </tr>
+</table>
+<br>
+
+<h6>Class bindings</h6>
+<div>I. Reset/override all class names with a binding</div>
+<div class="bad curly special" [class]="badCurly">Bad curly</div>
+<br>
+
+<div>II. Toggle a single class</div>
+<div [class.special]="special">This is a special class</div>
+<div [class.special]="!special">This is not a special class</div>
+<div [class.very]="special" [class.special]="special">This is a very special class</div>
+<div class="not" [class.very]="special" [class.special]="special">This is not a very special class</div>
+<br>
+
+<div>III. Toggle Multiple classes(ngClass directive)</div>
+<div [ngClass]="classConditions">Multiple class bindings</div>
+<div class="anotherClass" [ngClass]="classConditions">Multiple class bindings dont override other existing classes</div>
+<br>
+
+<h6>Style bindings</h6>
+<button [style.color]="isSpecial ? 'green': 'red'">Save</button>
+<br><br>
+<button [style.background-color]="canSave ? 'cyan': 'grey'" >Save</button>
+<br><br>
+<button [style.color]="isSpecial ? 'green': 'red'" [style.background-color]="canSave ? 'cyan': 'grey'">Save</button>
+<br><br>
+<button [style.font-size.px]="isSpecial ? 13 : 21">Big</button>
+<br><br>
+<button [style.fontSize.px]="isSpecial ? 13 : 21">Camel cased fontSize</button>
+<br><br>
+<div [ngStyle]="currentStyles"> Div with ngStyle directive</div>
+
+<br>
+<hr>
+<h6><b>Event Binding</b></h6>
+<button (click)="onSave($event)">Save</button>
+<br><br>
+<input type="text" (keypress)="onSave($event)"/>
+
+<br>
+<hr>
+<h6><b>Template Expression Operators</b></h6>
+<br>
+<h6>Pipe Operator:</h6>
+<div>Hero name: {{currentHero.name | uppercase}}</div>
+<div>{{currentHero | json}}</div>
+
+<br>
+<h6>Safe Navigation Operator:</h6>
+<div>The null hero's name is {{nullHero?.name}}</div>
+
+<br>
+<hr>
+<h6><b>Template Statements</b></h6>
+<div>Template statement allows assignment operator '='</div>
+<div>Hero name: {{currentHero.name}}</div>
+<div><button (click)="currentHero.name = 'David'">Save</button></div>
+<br>
+<div>We can chain the template statements</div>
+<div><button (click)="currentHero.name = 'David';onSave($event)">Save</button></div>
+
+<br>
+<hr>
+<h6><b>Template reference variables ( #hero )</b></h6>
+<form (ngSubmit)="onSubmit(heroForm)" #heroForm="ngForm">
+  <div class="form-group">
+    <label for="name">Name
+      <input class="form-control" name="name" required [(ngModel)]="currentHero.name">
+    </label>
+  </div>
+  <button type="submit" [disabled]="!heroForm.form.valid">Submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
