@@ -20,6 +20,7 @@ export class CustomEventsComponent implements OnInit {
 
   delete(heroObj) {
     console.log(heroObj);
+    console.log('test');
   }
 
 }
